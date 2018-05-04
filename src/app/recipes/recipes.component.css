@@ -1,0 +1,107 @@
+/* RecipesComponent's private CSS styles */
+.selected {
+  background-color: #CFD8DC !important;
+  color: white;
+}
+.recipes {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+}
+.side-nav tr {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.side-nav tr.selected:hover {
+  background-color: #BBD8DC !important;
+  color: white;
+}
+.side-nav tr:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+.recipes .text {
+  position: relative;
+  top: -3px;
+}
+.recipes .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.container {
+  position: absolute;
+  top: 60px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+}
+
+.offset {
+  left: 10px;
+}
+
+.recipeDetail {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 20px;
+  right: 0;
+}
+
+.side-nav {
+  display: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+
+}
+
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.align-text-left {
+  display: flex;
+  justify-content: flex-start;
+}
+.align-icon-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}

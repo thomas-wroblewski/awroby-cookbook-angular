@@ -1,0 +1,169 @@
+<mat-toolbar class="header">
+
+  <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
+  <h3 class="offset">Cookbook</h3>
+</mat-toolbar>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav class="side-nav" mode="side" opened="false" [fixedInViewport]="false" [fixedTopGap]="false"
+  [fixedBottomGap]="false">
+    <!--
+    <mat-table #recipesSideNav [dataSource]="recipes">
+      <ng-container matColumnDef="recipeName">
+        <mat-header-cell *matHeaderCellDef> Recipe </mat-header-cell>
+        <mat-cell *matCellDef="let recipe" (click)="onSelect(recipe)" class="alignleft"> {{recipe.name}} <i class="material-icons alignright" (click)="onDelete(recipe)">remove_circle</i></mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="sideMenuColumn"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: sideMenuColumn;"></mat-row>
+    </mat-table>
+    -->
+    <p-table [value]="recipes">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Recipes</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-recipe>
+          <tr>
+              <td (click)="onSelect(recipe)">{{recipe.name}} <i class="material-icons alignright" (click)="onDelete(recipe)">remove_circle</i></td>
+          </tr>
+
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <tr>
+              <td (click)="generateRecipe()">Add Recipe <i class="material-icons alignright">add_circle</i></td>
+            </tr>
+      </ng-template>
+  </p-table>
+
+
+  </mat-sidenav>
+  <mat-sidenav-content class="recipeDetail">
+
+    <div *ngIf="welcome">
+      <h3>Welcome to the Wroblewski Family Cookbook</h3>
+      <br/>
+      <h3>Eat!</h3>
+    </div>
+
+    <div *ngIf="selectedRecipe">
+      <h2>{{ selectedRecipe.name | uppercase }} Details: ({{selectedRecipe.id}})</h2>
+
+
+
+      <br/>
+      <div><span>Ingredients: </span></div>
+      <mat-table #ingredientsTable [dataSource]="selectedRecipe.ingredients">
+        <ng-container matColumnDef="amount">
+          <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ingredient">
+          <mat-header-cell *matHeaderCellDef> Ingredient </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.type}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="ingredientsColumn"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ingredientsColumn;"></mat-row>
+      </mat-table>
+
+      <br/>
+
+      <mat-table #instructionsTable [dataSource]="selectedRecipe.instructions">
+        <ng-container matColumnDef="instruction">
+          <mat-header-cell *matHeaderCellDef> Instruction </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.instruction}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="instructionsColumn"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: instructionsColumn;"></mat-row>
+      </mat-table>
+
+
+    </div>
+
+    <div *ngIf="newRecipe">
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12">
+                <div class="ui-inputgroup ui-g-1">
+                    <label>Name : </label>
+
+                </div>
+                <div class="ui-inputgroup ui-g-5">
+                    <input id="recipeName" type="text" size="30" pInputText [(ngModel)]="newRecipe.name">
+                </div>
+
+                <div class="ui-inputgroup ui-g-1">
+                    <label>Cooktime : </label>
+                    <!--<input id="recipeCooktime" type="text" size="30" pInputText [(ngModel)]="newRecipe.cooktime">-->
+
+                </div>
+                <div class="ui-inputgroup ui-g-5">
+                    <p-dropdown [options]="cookTimeOptions" [(ngModel)]="newRecipe.cooktime"></p-dropdown>
+                </div>
+          </div>
+          <br/>
+          <div class="ui-g-12">
+              <h4>Ingredients</h4>
+
+              <p-table [value]="newRecipe.ingredients" >
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th colspan="5">Type</th>
+                          <th colspan="5">Ingredient</th>
+                          <th colspan="2">Actions</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-ing>
+                      <tr>
+                          <td colspan="5">
+                            <input id="ingAmount" type="text" pInputText [(ngModel)]="ing.amount" style="display:table-cell; width:100%">
+                          </td>
+                          <td colspan="5">
+                            <input id="ingType" type="text" pInputText [(ngModel)]="ing.type" style="display:table-cell; width:100%">
+                          </td>
+                          <td colspan="2">
+                            <p-button label="add" (onClick)="addIngRow(newRecipe.ingredients)"></p-button>
+                            <p-button label="remove" *ngIf="newRecipe.ingredients.length != 1" (onClick)="removeIngRow(ing)"></p-button>
+                          </td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          </div>
+
+          <div class="ui-g-12">
+              <h4>Ingredients</h4>
+
+              <p-table [value]="newRecipe.instructions" >
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th colspan="10">Instruction</th>
+
+                          <th colspan="2">Actions</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-inst>
+                      <tr>
+                          <td colspan="9">
+                            <input id="instText" type="text" pInputText [(ngModel)]="inst.instruction" style="display:table-cell; width:100%">
+                          </td>
+
+                          <td colspan="2">
+                            <p-button label="add" (onClick)="addInstRow(newRecipe.instructions)"></p-button>
+                            <p-button label="remove" *ngIf="newRecipe.instructions.length != 1" (onClick)="removeInstRow(inst)"></p-button>
+                          </td>
+                      </tr>
+                  </ng-template>
+              </p-table>
+          </div>
+          <br/>
+
+          <p-button label="Add Recipe" (onClick)="submitRecipe(newRecipe)"></p-button>
+
+        </div>
+
+
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
