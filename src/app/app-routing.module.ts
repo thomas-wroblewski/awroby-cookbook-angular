@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { RecipesComponent } from './recipes/recipes.component';
+
+
+const routes: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  { path: 'recipes', component: RecipesComponent }
+];
+
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  declarations: [],
+  exports: [ RouterModule ]
+})
+export class AppRoutingModule { }

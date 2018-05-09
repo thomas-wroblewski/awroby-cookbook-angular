@@ -46,6 +46,7 @@ import { AppComponent } from './app.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeService } from './recipe.service';
 import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-de
     MatTooltipModule,
     TableModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    AppRoutingModule,
   ],
   providers: [
     RecipeService

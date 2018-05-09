@@ -26,7 +26,11 @@
       </ng-template>
       <ng-template pTemplate="body" let-recipe>
           <tr>
-              <td (click)="onSelect(recipe)">{{recipe.name}} <i class="material-icons alignright" (click)="onDelete(recipe)">remove_circle</i></td>
+              <td>
+                <label (click)="onSelect(recipe)">{{recipe.name}}</label>
+                <i class="material-icons alignright" (click)="onDelete(recipe)">remove_circle</i>
+                <i class="material-icons alignright" (click)="editRecipe(recipe)">build</i>
+              </td>
           </tr>
 
       </ng-template>
@@ -124,7 +128,7 @@
                             <input id="ingType" type="text" pInputText [(ngModel)]="ing.type" style="display:table-cell; width:100%">
                           </td>
                           <td colspan="2">
-                            <p-button label="add" (onClick)="addIngRow(newRecipe.ingredients)"></p-button>
+                            <p-button label="add" (onClick)="addIngRow(newRecipe.ingredients, ing)"></p-button>
                             <p-button label="remove" *ngIf="newRecipe.ingredients.length != 1" (onClick)="removeIngRow(ing)"></p-button>
                           </td>
                       </tr>
@@ -150,7 +154,7 @@
                           </td>
 
                           <td colspan="2">
-                            <p-button label="add" (onClick)="addInstRow(newRecipe.instructions)"></p-button>
+                            <p-button label="add" (onClick)="addInstRow(newRecipe.instructions, inst)"></p-button>
                             <p-button label="remove" *ngIf="newRecipe.instructions.length != 1" (onClick)="removeInstRow(inst)"></p-button>
                           </td>
                       </tr>
@@ -159,7 +163,7 @@
           </div>
           <br/>
 
-          <p-button label="Add Recipe" (onClick)="submitRecipe(newRecipe)"></p-button>
+          <p-button label="Save Recipe" (onClick)="submitRecipe(newRecipe)"></p-button>
 
         </div>
 

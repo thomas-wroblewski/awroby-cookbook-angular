@@ -81,7 +81,14 @@ export class RecipesComponent implements OnInit {
     });
   }
 
-  generateRecipe(newRecipe: Recipe) {
+  editRecipe(recipe: Recipe) {
+    this.newRecipe = recipe;
+    this.welcome = false;
+    this.selectedRecipe = null;
+    console.log('edit');
+  }
+
+  generateRecipe() {
     this.newRecipe = new Recipe();
     this.newRecipe.ingredients = [new Ingredient()];
     this.newRecipe.instructions = [new Instruction()];
@@ -89,8 +96,10 @@ export class RecipesComponent implements OnInit {
     this.selectedRecipe = null;
   }
 
-  addIngRow(ing: Ingredient[]) {
-    ing.push(new Ingredient());
+  addIngRow(ings: Ingredient[], ing: Ingredient) {
+    const index: number = this.newRecipe.ingredients.indexOf(ing);
+    ings.splice(index + 1, 0, new Ingredient());
+    // ings.push(new Ingredient());
   }
 
   removeIngRow(ing: Ingredient) {
@@ -102,8 +111,9 @@ export class RecipesComponent implements OnInit {
     }
   }
 
-  addInstRow(inst: Instruction[]) {
-    inst.push(new Instruction());
+  addInstRow(insts: Instruction[], inst: Instruction) {
+    const index: number = this.newRecipe.instructions.indexOf(inst);
+    insts.splice(index + 1, 0, new Instruction());
   }
 
   removeInstRow(inst: Instruction) {
@@ -123,9 +133,16 @@ export class RecipesComponent implements OnInit {
       inst.order = index++;
     }
     this.recipeService.postRecipe(recipe)
-      .subscribe(msg => { result = msg; console.log(msg); this.recipeService.getRecipes().subscribe(data => this.recipes = data);
-      }, err => { console.log(err); });
-    console.log(recipe);
+      .subscribe(msg => {
+        result = msg; console.log(msg);
+        this.recipeService.getRecipes().subscribe(data => this.recipes = data);
+        this.newRecipe = null;
+        this.welcome = true;
+      }, err => {
+        console.log(err);
+      });
+
+
   }
 
 }
