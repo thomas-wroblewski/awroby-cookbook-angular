@@ -3,7 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { SelectItem } from 'primeng/api';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
-
+import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from './recipe';
 import { Ingredient } from './ingredient';
@@ -34,7 +35,6 @@ export class RecipesComponent implements OnInit {
   constructor(recipeService: RecipeService, public dialog: MatDialog) {
       this.recipeService = recipeService;
       this.welcome = true;
-      // this.newRecipe = new Recipe();
       this.cookTimeOptions = [
         {label: '0 min', value: '0 min'},
         {label: '5 min', value: '5 min'},

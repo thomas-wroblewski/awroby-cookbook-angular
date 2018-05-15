@@ -4,9 +4,15 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
+// PrimeNG
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { DataGridModule } from 'primeng/datagrid';
+import { PanelModule } from 'primeng/panel';
+import { CheckboxModule } from 'primeng/checkbox';
+
 // Angular Material
 import { MatAutocompleteModule,
   MatButtonModule,
@@ -47,18 +53,21 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeService } from './recipe.service';
 import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
-    ConfirmDeleteDialogComponent
+    ConfirmDeleteDialogComponent,
+    ShoppingListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    // Angular Material
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatButtonModule,
@@ -92,9 +101,13 @@ import { AppRoutingModule } from './app-routing.module';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    // PrimeNG
     TableModule,
     DropdownModule,
     ButtonModule,
+    DataGridModule,
+    PanelModule,
+    CheckboxModule,
     AppRoutingModule,
   ],
   providers: [
