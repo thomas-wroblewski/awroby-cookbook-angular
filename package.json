@@ -1,6 +1,6 @@
 {
   "name": "cookbook",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,9 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "preversion": "ng test",
+    "preversion": "",
     "version": "ng build && git add -A dist",
-    "postversion": ""
+    "postversion": "git push && git push --tags && rm -rf build/temp"
   },
   "private": true,
   "dependencies": {
